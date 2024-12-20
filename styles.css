@@ -1,0 +1,2779 @@
+/* 导入字体 */
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap');
+
+@font-face {
+    font-family: 'JinLing';
+    src: url('fonts/JinLing.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 添加 Dancing Script 字体 */
+@font-face {
+    font-family: 'Dancing Script';
+    src: url('fonts/DancingScript-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 全局样式 */
+:root {
+    --primary-color: #000000;  /* 暗黑色底色 */
+    --accent-color: transparent;   /* 移除红色背景 */
+    --panel-color: transparent;    /* 移除红色背景 */
+    --gold-color: #000000;     /* 黑色 */
+    --text-color: #000000;     /* 黑色文字 */
+    --dark-bg: rgb(245, 245, 245);  /* 浅灰色背景 */
+    --light-bg: transparent;       /* 移除红色背景 */
+    --gold-gradient: linear-gradient(45deg, #000000, #000000, #000000); /* 黑色渐变 */
+    --main-pattern: url('images/pattern.png');  /* 恢复背景图案 */
+}
+
+body {
+    font-family: 'JinLing', 'Noto Serif SC', serif;
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-color: var(--dark-bg);
+}
+
+/* 导航栏样式 */
+.navbar {
+    background-color: rgba(0, 0, 0, 1);  /* 黑色背景，100%不透明 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    display: none;
+}
+
+.nav-seal {
+    display: none;
+}
+
+.navbar-collapse {
+    order: 2;
+    margin-right: 0;
+}
+
+.navbar-nav {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* 导航菜单按钮 */
+.nav-menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+    margin-right: 2rem;
+    order: 1;
+    background-image: url('images/圆毂印章4.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.nav-menu-btn span {
+    display: none;
+}
+
+/* 移除鼠标悬停效果 */
+.nav-menu-btn:hover span {
+    background-color: #000000;
+}
+
+/* 移除过 */
+.nav-menu-btn span {
+    transition: none;
+}
+
+/* 菜单容器 */
+.nav-dropdown {
+    position: fixed;
+    top: 80px;
+    left: -300px;
+    width: 300px;
+    height: calc(100vh - 100px);
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 1rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+/* 隐藏 Webkit 浏览器的滚动条 */
+.nav-dropdown::-webkit-scrollbar {
+    display: none;
+}
+
+.nav-dropdown.show {
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 下拉菜单链接样式 */
+.nav-dropdown .nav-item {
+    display: block;
+    margin: 0.5rem 0;
+    width: 100%;
+    text-align: center;
+}
+
+.nav-dropdown .nav-link {
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 70px;
+    white-space: nowrap;
+    color: #F5F5F5 !important;
+}
+
+.nav-dropdown .nav-link:hover {
+    background-color: rgba(139, 0, 0, 0.3);
+}
+
+.nav-dropdown .nav-link .zh-text,
+.nav-dropdown .nav-link .en-text {
+    display: block;
+    transition: all 0.3s ease;
+    line-height: 1.4;
+    color: #F5F5F5;
+}
+
+.nav-dropdown .nav-link .zh-text {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.nav-dropdown .nav-link .en-text {
+    position: relative;
+    font-size: 1.1rem;
+    opacity: 0;
+    transform: none;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+}
+
+.nav-dropdown .nav-link:hover .en-text {
+    opacity: 1;
+}
+
+/* 移除动链接的常亮下划线 */
+.nav-dropdown .nav-link.active::after {
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .navbar-brand {
+        order: 0;
+        margin-left: 0;
+    }
+
+    .navbar-collapse {
+        order: 2;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: rgb(246, 246, 246);
+        padding: 1rem;
+        box-shadow: 0 2px 10px rgba(139, 0, 0, 0.2);
+    }
+}
+
+/* 轮播图说明文背景 */
+.carousel-caption {
+    display: none;
+}
+
+/* 品牌使命与愿景 */
+.brand-mission {
+    padding: 2rem 0;
+    background-color: var(--dark-bg);
+}
+
+.mission-content,
+.vision-content {
+    width: 300px;
+    height: 200px;
+    margin: 0 auto;
+    perspective: 1000px;
+    cursor: pointer;
+    background: transparent;
+}
+
+.mission-card-inner,
+.vision-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.mission-content.flipped .mission-card-inner,
+.vision-content.flipped .vision-card-inner {
+    transform: rotateY(180deg);
+}
+
+.mission-front,
+.mission-back,
+.vision-front,
+.vision-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: transparent;  /* 移除红色背景 */
+    border-radius: 10px;
+}
+
+.mission-back,
+.vision-back {
+    transform: rotateY(180deg);
+}
+
+.mission-front h2,
+.vision-front h2 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 4rem;
+    color: #000000;  /* 改为黑色 */
+    margin: 0;
+    text-shadow: none;  /* 移除阴影效果 */
+}
+
+.mission-back p,
+.vision-back p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0.5rem 0;
+    color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+    .mission-content,
+    .vision-content {
+        margin-bottom: 2rem;
+    }
+    
+    .mission-front h2,
+    .vision-front h2 {
+        font-size: 3rem;
+    }
+}
+
+/* 页脚样式 */
+.footer {
+    padding: 4rem 0 2rem;
+    background-color: rgb(245, 245, 245);
+    color: var(--text-color);
+    position: relative;
+    z-index: 1;
+    background-image: var(--main-pattern);
+    background-size: 200px;
+    background-repeat: repeat;
+}
+
+.footer .container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.footer .row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.footer .col-md-4 {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 200px;
+    margin-left: 2rem;
+}
+
+.footer h4 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    color: #000000;  /* 改为黑色 */
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-shadow: none;  /* 移除阴影效果 */
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: right;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+    padding-left: 0;
+}
+
+.footer-links a::before {
+    display: none;
+}
+
+.footer-links a:hover {
+    color: #000000;  /* 改为黑色 */
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 3rem 0 1.5rem;
+    }
+
+    .footer .row {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .footer .col-md-4 {
+        flex: 0 0 100%;
+        text-align: center;
+        max-width: 300px;
+    }
+
+    .footer-links {
+        text-align: left;
+        max-width: 200px;
+        margin: 0 auto;
+    }
+}
+
+/* 漆树介绍样式 */
+.lacquer-tree {
+    padding: 1rem 0;
+    background-color: transparent;
+    background-image: var(--main-pattern);
+    background-size: 200px;
+    background-repeat: repeat;
+}
+
+/* 大漆工艺片 */
+.process-card-front,
+.process-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgb(215, 215, 215);
+    background-image: none;
+}
+
+/* 其他页面背景 */
+.gallery-page,
+.about-page,
+.lacquer-page,
+.custom-page {
+    padding-top: 100px;
+    background-color: var(--dark-bg);
+}
+
+/* 特性卡片 */
+.feature-card,
+.philosophy-card,
+.case-card {
+    background: var(--panel-color);
+    border-radius: 10px;
+}
+
+/* 时间线内容 */
+.timeline-item .content {
+    background-color: #C0C0C0;  /* 改为银灰色 */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-image: none;  /* 移除背景图案 */
+}
+
+.timeline-item .content h3 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 1.8rem;
+    color: #000000;  /* 改为黑色 */
+    margin-bottom: 1rem;
+    text-shadow: none;  /* 移除阴影效果 */
+}
+
+.timeline-item .content p {
+    color: #333333;  /* 深灰色文字，提高在银灰色背景上的可读性 */
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 合作伙伴区域 */
+.partners {
+    padding: 4rem 0;
+    background-color: transparent;  /* 移除红色背景 */
+    background-image: none;
+}
+
+/* 删之前添加的背景图案混合模式 */
+[class*="background-image"][style*="var(--main-pattern)"],
+[style*="var(--main-pattern)"],
+.navbar,
+.carousel-caption,
+.brand-mission,
+.mission-content,
+.vision-content,
+.art-philosophy,
+.philosophy-card,
+.timeline-item .content,
+.partners,
+.footer,
+.lacquer-tree,
+.lacquer-features,
+.feature-card,
+.process-content,
+.lacquer-value,
+.process-card-front,
+.process-card-back,
+.custom-features,
+.case-card,
+.custom-contact {
+    background-blend-mode: unset;
+    opacity: 1;
+    mix-blend-mode: unset;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'JinLing', 'Noto Serif SC', serif;
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-color: var(--dark-bg);
+    background-image: var(--main-pattern);
+    background-size: 300px;
+    background-repeat: repeat;
+    background-attachment: fixed;
+}
+
+/* 导航栏样式 */
+.navbar {
+    background-color: rgba(0, 0, 0, 1);  /* 黑色背景，100%不透明 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    padding: 1rem 0;
+    transition: all 0.3s ease;
+    background-image: var(--main-pattern);
+    background-size: 160px;
+    background-repeat: repeat;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+}
+
+.navbar-brand {
+    margin-right: 0;
+    padding: 0;
+}
+
+.nav-seal {
+    height: 50px;
+    width: auto;
+}
+
+.navbar-collapse {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-nav {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    flex: 0 0 auto;
+    margin: 0 2rem;
+}
+
+.nav-link {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 1.2rem;
+    color: var(--text-color) !important;
+    padding: 0.5rem 1rem;
+    position: relative;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    perspective: 1000px;
+}
+
+.nav-link span {
+    display: inline-block;
+    transition: transform 0.5s ease, opacity 0.3s ease;
+    transform-style: preserve-3d;
+    position: relative;
+    backface-visibility: hidden;
+}
+
+.nav-link .zh-text {
+    transform: rotateX(0deg);
+}
+
+.nav-link .en-text {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    transform: rotateX(-180deg);
+    color: #000000;  /* 改为黑色 */
+    font-family: 'Times New Roman', serif;
+    opacity: 0;
+}
+
+.nav-link:hover .zh-text {
+    transform: rotateX(180deg);
+    opacity: 0;
+}
+
+.nav-link:hover .en-text {
+    transform: rotateX(0deg);
+    opacity: 1;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gold-gradient);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-link:hover {
+    color: #000000 !important;  /* 改为黑色 */
+}
+
+@media (max-width: 991px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: rgb(246, 246, 246);
+        padding: 1rem;
+        box-shadow: 0 2px 10px rgba(139, 0, 0, 0.2);
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+    }
+
+    .nav-item {
+        width: 100%;
+        text-align: center;
+        margin: 0.5rem 0;
+    }
+
+    .nav-link {
+        padding: 0.8rem 1rem;
+    }
+
+    .nav-link .en-text {
+        font-size: 1rem;
+    }
+}
+
+/* 轮播图 */
+.carousel {
+    margin-top: 76px;
+    height: 90vh;
+    overflow: hidden;
+}
+
+.carousel-item {
+    height: 90vh;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+/* 联系表样式 */
+#contact {
+    padding: 3rem 0;
+    background-color: var(--dark-bg);
+}
+
+.section-title {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #000000;  /* 改为黑色 */
+    text-shadow: none;  /* 移除阴影效果 */
+}
+
+#contactForm {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-control {
+    border: none;
+    border-bottom: 2px solid var(--gold-color);
+    border-radius: 0;
+    padding: 0.75rem 0;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s ease;
+    background-color: rgb(75, 0, 0);
+    color: #F5F5F5;
+    font-size: 0.95rem;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: var(--accent-color);
+    background-color: rgb(75, 0, 0);
+    color: #F5F5F5;
+}
+
+.form-control::placeholder {
+    color: rgba(245, 245, 245, 0.7);
+    font-size: 0.95rem;
+}
+
+textarea.form-control {
+    height: 100px;
+    resize: none;
+    padding: 0.75rem;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--gold-gradient);
+    color: var(--primary-color);
+}
+
+/* 页脚样式增强 */
+.footer {
+    padding: 4rem 0 2rem;
+    background-color: rgb(245, 245, 245);
+    color: var(--text-color);
+    position: relative;
+    z-index: 1;
+    background-image: var(--main-pattern);
+    background-size: 200px;
+    background-repeat: repeat;
+}
+
+.footer h4 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    color: #000000;  /* 改为黑色 */
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-shadow: none;  /* 移除阴影效果 */
+}
+
+.footer-contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-contact li {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.footer-contact li i {
+    color: #000000;  /* 改为黑色 */
+    margin-right: 0.8rem;
+    font-size: 1.1rem;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+    padding-left: 0;
+}
+
+.footer-links a::before {
+    display: none;
+}
+
+.footer-links a:hover {
+    color: #000000;  /* 改为黑色 */
+}
+
+.social-links {
+    display: flex;
+    gap: 1.1rem;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    bottom: -2rem;  /* 保持垂直位置不变 */
+    left: 10mm;    /* 向左平移1厘米 */
+}
+
+.social-icon {
+    color: var(--text-color);
+    font-size: 1.26rem;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #000000;  /* 改为黑色 */
+    transform: translateY(-3px);
+}
+
+.social-icon::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.social-icon:hover::after {
+    opacity: 1;
+}
+
+.footer-divider {
+    margin: 2rem 0;
+    border-color: rgba(212, 175, 55, 0.2);
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.copyright {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.icp {
+    color: rgba(245, 245, 245, 0.7);
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 3rem 0 1.5rem;
+    }
+
+    .footer .col-md-4 {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .footer-contact li {
+        justify-content: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    .footer-links {
+        text-align: left;
+        max-width: 200px;
+        margin: 0 auto;
+    }
+}
+
+/* 应式设计 */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.5rem 0;
+    }
+
+    .carousel {
+        height: 80vh;
+        margin-top: 60px;
+    }
+
+    .carousel-item {
+        height: 80vh;
+    }
+
+    .carousel-caption {
+        padding: 1rem;
+        bottom: 10%;
+    }
+
+    .carousel-caption h3 {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        padding: 1rem;
+    }
+
+    .filter-btn {
+        margin: 0 0.5rem;
+        font-size: 1rem;
+    }
+} 
+
+/* 关于我们页样式 */
+.about-page {
+    padding-top: 100px;
+    background-color: var(--dark-bg);
+    background-image: var(--main-pattern);
+}
+
+.brand-story {
+    padding: 2rem 0;  /* 减小上下padding */
+    background-color: transparent;
+}
+
+.story-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.brand-logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 1rem;  /* 减小logo的下边距 */
+    transition: transform 0.3s ease;
+}
+
+.brand-logo:hover {
+    transform: scale(1.05);
+}
+
+.story-content h2 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 2.5rem;
+    color: #000000;
+    margin-bottom: 1rem;  /* 减小标题的下边距 */
+    text-shadow: none;
+}
+
+.story-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;  /* 减小段落的下边距 */
+    color: var(--text-color);
+}
+
+.art-philosophy {
+    padding: 4rem 0;
+    background-color: transparent;  /* 移除红色背景 */
+    background-image: none;
+}
+
+.philosophy-card {
+    text-align: center;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+    background: transparent;  /* 移除红色背景 */
+    border-radius: 10px;
+    background-image: none;
+}
+
+.philosophy-card:hover {
+    transform: translateY(-10px);
+}
+
+.philosophy-card h3 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 2rem;
+    color: #000000;  /* 改为黑色 */
+    margin-bottom: 1.5rem;
+    text-shadow: none;  /* 移除阴影效果 */
+}
+
+.philosophy-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.history {
+    padding: 4rem 0;
+}
+
+.history h2 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 2.5rem;
+    color: #000000;  /* 改为黑色 */
+    text-align: center;
+    margin-bottom: 3rem;
+    text-shadow: none;  /* 移除阴影效果 */
+}
+
+.timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: var(--gold-gradient);
+    opacity: 0.5;
+}
+
+.timeline-item {
+    margin-bottom: 4rem;
+    position: relative;
+    padding-left: 50%;
+}
+
+.timeline-item:nth-child(even) {
+    padding-left: 0;
+    padding-right: 50%;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--gold-color);
+    border: 2px solid var(--accent-color);
+    z-index: 2;
+}
+
+.timeline-item .year {
+    position: absolute;
+    font-family: 'Times New Roman', serif;
+    font-size: 8rem;
+    font-weight: bold;
+    color: #000000;  /* 改为黑色 */
+    opacity: 0.1;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    pointer-events: none;
+    width: 200px;
+    text-align: right;
+}
+
+.timeline-item .year {
+    right: 55%;
+}
+
+.timeline-item:nth-child(even) .year {
+    left: 55%;
+    text-align: left;
+}
+
+.timeline-item .content {
+    background-color: #C0C0C0;  /* 改为银灰色 */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-left: 2rem;
+    position: relative;
+    z-index: 2;
+    background-image: none;  /* 移除背景图案 */
+}
+
+.timeline-item:nth-child(even) .content {
+    margin-left: 0;
+    margin-right: 2rem;
+}
+
+.timeline-item .content h3 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 1.8rem;
+    color: #000000;  /* 改为黑色 */
+    margin-bottom: 1rem;
+    text-shadow: none;  /* 移除阴影效果 */
+}
+
+.timeline-item .content p {
+    color: #333333;  /* 深灰色文字，提高在银灰色背景上的可读性 */
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 30px;
+    }
+
+    .timeline-item,
+    .timeline-item:nth-child(even) {
+        padding-left: 80px;
+        padding-right: 0;
+        margin-bottom: 3rem;
+    }
+
+    .timeline-item::before {
+        left: 30px;
+        top: 50%;
+    }
+
+    .timeline-item .year,
+    .timeline-item:nth-child(even) .year {
+        left: -20px;
+        text-align: left;
+        font-size: 6rem;
+        width: auto;
+    }
+
+    .timeline-item .content,
+    .timeline-item:nth-child(even) .content {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeline-item .year,
+    .timeline-item:nth-child(even) .year {
+        font-size: 4rem;
+    }
+}
+
+/* 合伙伴样式 */
+.partners {
+    padding: 4rem 0;
+    background-color: transparent;  /* 移除红色背景 */
+    background-image: none;
+}
+
+.partners h2 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 2.5rem;
+    color: #000000;  /* 改为黑色 */
+    text-align: center;
+    margin-bottom: 3rem;
+    text-shadow: none;  /* 移除阴影效果 */
+}
+
+.partners-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: transparent;  /* 移除红色背景 */
+}
+
+.partners-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.partners-row:last-child {
+    margin-bottom: 0;
+}
+
+.partner-item {
+    flex: 0 1 18%;
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+    background-color: transparent;  /* 移除红色背景 */
+}
+
+.partner-item:hover {
+    transform: translateY(-10px);
+}
+
+.partner-item img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    filter: brightness(0) invert(1);
+    transition: filter 0.3s ease;
+}
+
+.partner-item:hover img {
+    filter: none;  /* 移除滤镜，显示原始颜色 */
+}
+
+.partner-item p {
+    display: none;  /* 隐藏文字描述 */
+}
+
+@media (max-width: 991px) {
+    .partners-row {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .partner-item {
+        flex: 0 1 30%;
+    }
+}
+
+@media (max-width: 768px) {
+    .partner-item {
+        flex: 0 1 45%;
+    }
+
+    .partner-item img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .partner-item {
+        flex: 0 1 100%;
+    }
+} 
+
+/* 大漆页面样式 */
+.lacquer-page {
+    padding-top: 100px;
+    background-color: var(--dark-bg);
+    background-image: var(--main-pattern);
+    background-size: 300px;
+    background-repeat: repeat;
+}
+
+.lacquer-intro {
+    padding: 4rem 0;
+}
+
+.intro-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.lacquer-intro .intro-content h2 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 2.5rem;
+    color: #000000;
+    margin-bottom: 2rem;
+    text-shadow: none;
+}
+
+.intro-content p,
+.value-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.lacquer-features {
+    padding: 4rem 0;
+    background-color: transparent;
+    background-image: none;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+    background: transparent;
+    border-radius: 10px;
+    background-image: none;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-card h3 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 2rem;
+    color: #000000;  /* 改为黑色 */
+    margin-bottom: 1.5rem;
+    text-shadow: none;  /* 移除阴影效果 */
+}
+
+.feature-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.lacquer-process {
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.process-timeline {
+    max-width: 800px;
+    margin: 4rem auto 0;
+    position: relative;
+}
+
+.process-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.process-number {
+    font-family: 'Times New Roman', serif;
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--gold-color);
+    opacity: 0.3;
+    margin-right: 2rem;
+    min-width: 100px;
+    text-align: center;
+}
+
+.process-content {
+    background-color: var(--panel-color);
+    padding: 2rem;
+    border-radius: 10px;
+    flex: 1;
+    text-align: left;
+    background-image: var(--main-pattern);
+    background-size: 120px;
+    background-repeat: repeat;
+}
+
+.process-content h3 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 1.8rem;
+    color: var(--gold-color);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.process-content p {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.lacquer-value {
+    padding: 4rem 0;
+    background-color: transparent;
+    background-image: none;
+}
+
+.value-content {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+@media (max-width: 768px) {
+    .process-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .process-number {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    .feature-card {
+        margin-bottom: 2rem;
+    }
+} 
+
+/* 私人定制页面样式 */
+.custom-page {
+    padding-top: 100px;
+    background-color: var(--dark-bg);
+    background-image: var(--main-pattern);
+    background-size: 300px;
+    background-repeat: repeat;
+}
+
+.custom-intro {
+    padding: 4rem 0;
+}
+
+.custom-intro .intro-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.custom-intro h2,
+.custom-process h2,
+.custom-cases h2,
+.custom-contact h2 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 2.5rem;
+    color: var(--gold-color);
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.custom-intro p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.custom-features {
+    padding: 4rem 0;
+    background-color: var(--panel-color);
+    background-image: var(--main-pattern);
+    background-size: 200px;
+    background-repeat: repeat;
+}
+
+.custom-cases {
+    padding: 6rem 0;
+    text-align: center;
+}
+
+.case-card {
+    background: var(--panel-color);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+    background-image: var(--main-pattern);
+    background-size: 160px;
+    background-repeat: repeat;
+}
+
+.case-card:hover {
+    transform: translateY(-10px);
+}
+
+.case-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.case-info {
+    padding: 1.5rem;
+}
+
+.case-info h3 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 1.8rem;
+    color: var(--gold-color);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.case-info p {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.custom-contact {
+    padding: 4rem 0;
+    background-color: var(--panel-color);
+    background-image: var(--main-pattern);
+    background-size: 200px;
+    background-repeat: repeat;
+}
+
+.contact-content {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.contact-info {
+    margin-top: 2rem;
+    text-align: left;
+}
+
+.contact-info p {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.contact-info i {
+    color: #000000;  /* 改为黑色 */
+    margin-right: 1rem;
+    width: 24px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .custom-intro,
+    .custom-features,
+    .custom-cases,
+    .custom-contact {
+        padding: 3rem 0;
+    }
+
+    .case-card img {
+        height: 200px;
+    }
+
+    .contact-info {
+        text-align: center;
+    }
+} 
+
+/* 大漆工艺流程样式 */
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+.process-card {
+    perspective: 1000px;
+    height: 400px;
+    cursor: pointer;
+    position: relative;
+}
+
+.process-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.process-card.flipped .process-card-inner {
+    transform: rotateY(180deg);
+}
+
+.process-card-front,
+.process-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgb(215, 215, 215);
+    cursor: pointer;
+}
+
+.process-card-front {
+    transform: rotateY(0deg);
+    z-index: 2;
+}
+
+.process-card-back {
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+
+.process-card-front img {
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.process-card-front img:hover {
+    opacity: 0.9;
+}
+
+.process-card-front h3,
+.process-card-back h3 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 2rem;
+    color: #000000;  /* 改为黑色 */
+    margin: 1rem 0;
+    text-shadow: none;  /* 移除阴影效果 */
+}
+
+.process-card-back p {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .process-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        padding: 1.5rem 0;
+    }
+
+    .process-card {
+        height: 350px;
+    }
+
+    .process-card-front h3,
+    .process-card-back h3 {
+        font-size: 1.8rem;
+    }
+
+    .process-card-back p {
+        font-size: 1rem;
+    }
+} 
+
+/* 树介绍样式 */
+.lacquer-tree {
+    padding: 1rem 0;
+    background-color: transparent;
+    background-image: var(--main-pattern);
+    background-size: 200px;
+    background-repeat: repeat;
+}
+
+.tree-content {
+    text-align: center;
+    padding: 0;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.tree-content h2 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 2.5rem;
+    color: #000000;  /* 改为黑色 */
+    margin-bottom: 0.5rem;
+    text-shadow: none;  /* 移除阴影效果 */
+    letter-spacing: 0.5em;
+    text-align: center;
+    padding-left: 0.5em;
+}
+
+.tree-content .en-title {
+    font-family: 'Times New Roman', serif;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    font-weight: normal;
+    letter-spacing: 0.2em;
+}
+
+.tree-info {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+.tree-info img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 10px;
+    margin: 0 auto 2rem auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: block;
+    float: none;
+}
+
+.tree-info p {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    text-indent: 2em;
+    clear: both;
+}
+
+@media (max-width: 768px) {
+    .lacquer-tree {
+        padding: 1rem 0;
+    }
+
+    .tree-content {
+        padding: 0;
+    }
+
+    .tree-info p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+} 
+
+/* 作品集手风琴样式 */
+.gallery-accordion {
+    display: flex;
+    min-height: 80vh;
+    margin: 2rem 0;
+    gap: 1rem;
+}
+
+.artwork-panel {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.artwork-panel:hover {
+    flex: 4;
+}
+
+.artwork-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 80vh;
+}
+
+.artwork-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.artwork-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    padding: 2rem;
+    color: var(--text-color);
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.artwork-panel:hover .artwork-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.artwork-text h3 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 2rem;
+    color: #000000;  /* 改为黑色 */
+    margin-bottom: 1rem;
+    text-shadow: none;  /* 移除阴影效果 */
+}
+
+.artwork-text p {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.artwork-description {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .gallery-accordion {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .artwork-panel {
+        min-height: 300px;
+    }
+
+    .artwork-content {
+        min-height: 300px;
+    }
+
+    .artwork-panel:hover {
+        flex: 1;
+        transform: scale(1.02);
+    }
+
+    .artwork-info {
+        padding: 1rem;
+    }
+
+    .artwork-text h3 {
+        font-size: 1.5rem;
+    }
+
+    .artwork-text p {
+        font-size: 1rem;
+    }
+
+    .artwork-description {
+        font-size: 0.9rem;
+    }
+} 
+
+/* 导航栏中的 Lacquer Art 文字动画 */
+.lacquer-art-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: white;  /* 改为白色 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+.lacquer-art-text .letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: letterSlide 7s infinite;
+    margin: 0 0.1em;
+}
+
+/* 为每个字母设置不同的延，造从左向右展开和消散的效果 */
+.lacquer-art-text .letter:nth-child(1) { 
+    animation-delay: 0s; 
+    animation-direction: normal;
+}    /* L */
+.lacquer-art-text .letter:nth-child(2) { 
+    animation-delay: 0.1s;
+    animation-direction: normal;
+}  /* a */
+.lacquer-art-text .letter:nth-child(3) { 
+    animation-delay: 0.2s;
+    animation-direction: normal;
+}  /* c */
+.lacquer-art-text .letter:nth-child(4) { 
+    animation-delay: 0.3s;
+    animation-direction: normal;
+}  /* q */
+.lacquer-art-text .letter:nth-child(5) { 
+    animation-delay: 0.4s;
+    animation-direction: normal;
+}  /* u */
+.lacquer-art-text .letter:nth-child(6) { 
+    animation-delay: 0.5s;
+    animation-direction: normal;
+}  /* e */
+.lacquer-art-text .letter:nth-child(7) { 
+    animation-delay: 0.6s;
+    animation-direction: normal;
+}  /* r */
+.lacquer-art-text .letter:nth-child(8) { 
+    animation-delay: 0.7s;
+    animation-direction: normal;
+}  /* space */
+.lacquer-art-text .letter:nth-child(9) { 
+    animation-delay: 0.8s;
+    animation-direction: normal;
+}  /* A */
+.lacquer-art-text .letter:nth-child(10) { 
+    animation-delay: 0.9s;
+    animation-direction: normal;
+}  /* r */
+.lacquer-art-text .letter:nth-child(11) { 
+    animation-delay: 1s;
+    animation-direction: normal;
+}  /* t */
+
+@keyframes letterSlide {
+    0%, 100% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    15% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    70% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    85% {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+}
+
+/* 端适配 */
+@media (max-width: 768px) {
+    .lacquer-art-text {
+        font-size: 1.8rem;
+    }
+}
+
+.dropdown-toggle-split {
+    border: none;
+    padding-left: 8px;
+    padding-right: 8px;
+    height: calc(100% - 2px);
+    margin-bottom: 2px;
+    transition: none;
+}
+
+.dropdown-toggle-split::after {
+    margin-left: 0;
+}
+
+.dropdown-toggle-split.btn-secondary {
+    background-color: transparent !important;
+    border: none !important;
+    color: #F5F5F5 !important;
+    padding-bottom: 0;
+    box-shadow: none !important;
+}
+
+.dropdown-toggle-split.btn-secondary:hover,
+.dropdown-toggle-split.btn-secondary:focus,
+.dropdown-toggle-split.btn-secondary:active,
+.dropdown-toggle-split.btn-secondary.active {
+    background-color: transparent !important;
+    border: none !important;
+    color: #F5F5F5 !important;
+    box-shadow: none !important;
+}
+
+.input-group .form-control:focus + .dropdown-toggle-split {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* 移输入框的右边框 */
+.input-group .form-control {
+    border-right: none;
+}
+
+/* 移除下拉框的外边框 */
+.dropdown-menu {
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    left: auto !important;
+    right: 0 !important;
+    transform-origin: top right !important;
+}
+
+.dropdown-menu.show {
+    display: block;
+    margin-top: 0;
+    margin-right: -8px;
+}
+
+/* 移除下��项的边框和悬停效果 */
+.dropdown-item {
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    padding-left: 1rem;
+}
+
+.dropdown-item:hover {
+    border: none;
+    background-color: transparent;
+}
+
+/* 区域选择下拉按钮样式 */
+.country-dropdown .dropdown-toggle-split {
+    border: none;
+    padding-left: 8px;
+    padding-right: 8px;
+    height: calc(100% - 2px);
+    margin-bottom: 2px;
+    transition: none;
+}
+
+.country-dropdown .dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: rgb(75, 0, 0);
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 0;
+    margin-top: 2px;
+    scrollbar-width: none;
+}
+
+.country-dropdown .dropdown-menu::-webkit-scrollbar {
+    display: none;
+}
+
+.country-dropdown .dropdown-item {
+    color: #F5F5F5;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.country-dropdown .dropdown-item .country-code {
+    margin-left: auto;
+    opacity: 0.7;
+    font-size: 0.85rem;
+}
+
+/* 字母分隔符样式 */
+.country-dropdown .alphabet-divider {
+    color: #000000;  /* 改为黑色 */
+    font-size: 0.8rem;
+    padding: 0.3rem 1rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 0;
+    pointer-events: none;
+}
+
+/* 输入框组样式更新 */
+.input-group {
+    background-color: rgb(75, 0, 0);
+}
+
+.input-group .form-control {
+    background-color: transparent;
+    padding-left: 0.75rem;
+    border-right: none;
+}
+
+.input-group .dropdown-toggle-split {
+    background-color: transparent;
+    color: #F5F5F5;
+    margin-top: 0;
+}
+
+/* 性别选择下拉菜单样式保持不变 */
+.dropdown-menu {
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    left: auto !important;
+    right: 0 !important;
+    transform-origin: top right !important;
+}
+
+.dropdown-menu.show {
+    display: block;
+    margin-top: 0;
+    margin-right: -8px;
+}
+
+/* 调整社交媒体图标容器的定位 */
+.footer .col-md-4:last-child {
+    display: block;
+    position: relative;
+    min-height: 200px;  /* 确保容器有足够的高度 */
+}
+
+.social-links {
+    display: flex;
+    gap: 1.1rem;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    bottom: -2rem;  /* 与横线对齐 */
+    left: 10mm;    /* 向左平移1厘米 */
+}
+
+.social-icon {
+    color: var(--text-color);
+    font-size: 1.26rem;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #000000;  /* 改黑色 */
+    transform: translateY(-3px);
+}
+
+/* 调整页脚横的置 */
+.footer-divider {
+    margin: 2rem 0;
+    border-color: rgba(212, 175, 55, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .footer .col-md-4:last-child {
+        min-height: 150px;  /* 移动端减小高度 */
+    }
+    
+    .social-links {
+        position: static;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+}
+
+/* 最新资讯样式 */
+#news {
+    padding: 6rem 0;
+    background-color: var(--dark-bg);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #000000;  /* 改为黑色 */
+    text-shadow: none;  /* 移除阴影效果 */
+}
+
+.section-title-en {
+    font-family: 'Times New Roman', serif;
+    font-size: 2rem;
+    color: var(--text-color);
+    font-weight: normal;
+    margin: 0;
+}
+
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.news-item {
+    display: grid;
+    grid-template-columns: minmax(200px, auto) minmax(600px, 800px);
+    gap: 1rem;
+    align-items: start;
+    background: transparent;
+}
+
+.news-item:nth-child(2),
+.news-item:nth-child(3) {
+    grid-template-columns: minmax(200px, auto) minmax(600px, 800px);
+}
+
+.news-title {
+    text-align: left;
+    white-space: nowrap;
+    padding: 0;
+}
+
+.news-title h3 {
+    font-family: 'JinLing', 'Noto Serif SC', serif;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin: 0;
+    text-shadow: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+}
+
+.news-content {
+    padding: 0;
+    max-width: 800px;
+}
+
+@media (max-width: 991px) {
+    .news-item,
+    .news-item:nth-child(2),
+    .news-item:nth-child(3) {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .news-title {
+        text-align: left;
+    }
+}
+
+/* 八大技艺卡片样式 */
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.process-card {
+    perspective: 1000px;
+    height: 300px;
+}
+
+.process-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.process-card.flipped .process-card-inner {
+    transform: rotateY(180deg);
+}
+
+.process-card-front,
+.process-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.process-card-front {
+    background-color: #fff;
+    z-index: 2;
+}
+
+.process-card-back {
+    background-color: var(--accent-color);
+    color: #fff;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.process-card-front img {
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+}
+
+.process-card-front h3 {
+    margin: 1rem 0;
+    color: var(--text-color);
+}
+
+.process-card-back h3 {
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.process-card-back p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    .process-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        padding: 1.5rem 0;
+    }
+
+    .process-card {
+        height: 350px;
+    }
+
+    .process-card-front h3,
+    .process-card-back h3 {
+        font-size: 1.8rem;
+    }
+
+    .process-card-back p {
+        font-size: 1rem;
+    }
+} 
+
+/* 树介绍样式 */
+.lacquer-tree {
+    padding: 1rem 0;
+    background-color: transparent;
+    background-image: var(--main-pattern);
+    background-size: 200px;
+    background-repeat: repeat;
+}
+
+.tree-content {
+    text-align: center;
+    padding: 0;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.tree-content h2 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 2.5rem;
+    color: #000000;  /* 改为黑色 */
+    margin-bottom: 0.5rem;
+    text-shadow: none;  /* 移除阴影效果 */
+    letter-spacing: 0.5em;
+    text-align: center;
+    padding-left: 0.5em;
+}
+
+.tree-content .en-title {
+    font-family: 'Times New Roman', serif;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    font-weight: normal;
+    letter-spacing: 0.2em;
+}
+
+.tree-info {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+.tree-info img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 10px;
+    margin: 0 auto 2rem auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: block;
+    float: none;
+}
+
+.tree-info p {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    text-indent: 2em;
+    clear: both;
+}
+
+@media (max-width: 768px) {
+    .lacquer-tree {
+        padding: 1rem 0;
+    }
+
+    .tree-content {
+        padding: 0;
+    }
+
+    .tree-info p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+} 
+
+/* 作品集手风琴样式 */
+.gallery-accordion {
+    display: flex;
+    min-height: 80vh;
+    margin: 2rem 0;
+    gap: 1rem;
+}
+
+.artwork-panel {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.artwork-panel:hover {
+    flex: 4;
+}
+
+.artwork-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 80vh;
+}
+
+.artwork-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.artwork-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    padding: 2rem;
+    color: var(--text-color);
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.artwork-panel:hover .artwork-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.artwork-text h3 {
+    font-family: 'JinLing', 'Ma Shan Zheng', cursive;
+    font-size: 2rem;
+    color: #000000;  /* 改为黑色 */
+    margin-bottom: 1rem;
+    text-shadow: none;  /* 移除阴影效果 */
+}
+
+.artwork-text p {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.artwork-description {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .gallery-accordion {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .artwork-panel {
+        min-height: 300px;
+    }
+
+    .artwork-content {
+        min-height: 300px;
+    }
+
+    .artwork-panel:hover {
+        flex: 1;
+        transform: scale(1.02);
+    }
+
+    .artwork-info {
+        padding: 1rem;
+    }
+
+    .artwork-text h3 {
+        font-size: 1.5rem;
+    }
+
+    .artwork-text p {
+        font-size: 1rem;
+    }
+
+    .artwork-description {
+        font-size: 0.9rem;
+    }
+} 
+
+/* 导航栏中的 Lacquer Art 文字动画 */
+.lacquer-art-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: white;  /* 改为白色 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+.lacquer-art-text .letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: letterSlide 7s infinite;
+    margin: 0 0.1em;
+}
+
+/* 为每个字母设置不同的延，造从左向右展开和消散的效果 */
+.lacquer-art-text .letter:nth-child(1) { 
+    animation-delay: 0s; 
+    animation-direction: normal;
+}    /* L */
+.lacquer-art-text .letter:nth-child(2) { 
+    animation-delay: 0.1s;
+    animation-direction: normal;
+}  /* a */
+.lacquer-art-text .letter:nth-child(3) { 
+    animation-delay: 0.2s;
+    animation-direction: normal;
+}  /* c */
+.lacquer-art-text .letter:nth-child(4) { 
+    animation-delay: 0.3s;
+    animation-direction: normal;
+}  /* q */
+.lacquer-art-text .letter:nth-child(5) { 
+    animation-delay: 0.4s;
+    animation-direction: normal;
+}  /* u */
+.lacquer-art-text .letter:nth-child(6) { 
+    animation-delay: 0.5s;
+    animation-direction: normal;
+}  /* e */
+.lacquer-art-text .letter:nth-child(7) { 
+    animation-delay: 0.6s;
+    animation-direction: normal;
+}  /* r */
+.lacquer-art-text .letter:nth-child(8) { 
+    animation-delay: 0.7s;
+    animation-direction: normal;
+}  /* space */
+.lacquer-art-text .letter:nth-child(9) { 
+    animation-delay: 0.8s;
+    animation-direction: normal;
+}  /* A */
+.lacquer-art-text .letter:nth-child(10) { 
+    animation-delay: 0.9s;
+    animation-direction: normal;
+}  /* r */
+.lacquer-art-text .letter:nth-child(11) { 
+    animation-delay: 1s;
+    animation-direction: normal;
+}  /* t */
+
+@keyframes letterSlide {
+    0%, 100% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    15% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    70% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    85% {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+}
+
+/* 端适配 */
+@media (max-width: 768px) {
+    .lacquer-art-text {
+        font-size: 1.8rem;
+    }
+}
+
+.dropdown-toggle-split {
+    border: none;
+    padding-left: 8px;
+    padding-right: 8px;
+    height: calc(100% - 2px);
+    margin-bottom: 2px;
+    transition: none;
+}
+
+.dropdown-toggle-split::after {
+    margin-left: 0;
+}
+
+.dropdown-toggle-split.btn-secondary {
+    background-color: transparent !important;
+    border: none !important;
+    color: #F5F5F5 !important;
+    padding-bottom: 0;
+    box-shadow: none !important;
+}
+
+.dropdown-toggle-split.btn-secondary:hover,
+.dropdown-toggle-split.btn-secondary:focus,
+.dropdown-toggle-split.btn-secondary:active,
+.dropdown-toggle-split.btn-secondary.active {
+    background-color: transparent !important;
+    border: none !important;
+    color: #F5F5F5 !important;
+    box-shadow: none !important;
+}
+
+.input-group .form-control:focus + .dropdown-toggle-split {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* 移输入框的右边框 */
+.input-group .form-control {
+    border-right: none;
+}
+
+/* 移除下拉框的外边框 */
+.dropdown-menu {
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    left: auto !important;
+    right: 0 !important;
+    transform-origin: top right !important;
+}
+
+.dropdown-menu.show {
+    display: block;
+    margin-top: 0;
+    margin-right: -8px;
+}
+
+/* 移除下拉项的边框和悬停效果 */
+.dropdown-item {
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    padding-left: 1rem;
+}
+
+.dropdown-item:hover {
+    border: none;
+    background-color: transparent;
+}
+
+/* 区域选择下拉按钮样式 */
+.country-dropdown .dropdown-toggle-split {
+    border: none;
+    padding-left: 8px;
+    padding-right: 8px;
+    height: calc(100% - 2px);
+    margin-bottom: 2px;
+    transition: none;
+}
+
+.country-dropdown .dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: rgb(75, 0, 0);
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 0;
+    margin-top: 2px;
+    scrollbar-width: none;
+}
+
+.country-dropdown .dropdown-menu::-webkit-scrollbar {
+    display: none;
+}
+
+.country-dropdown .dropdown-item {
+    color: #F5F5F5;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.country-dropdown .dropdown-item .country-code {
+    margin-left: auto;
+    opacity: 0.7;
+    font-size: 0.85rem;
+}
+
+/* 字母分隔符样式 */
+.country-dropdown .alphabet-divider {
+    color: #000000;  /* 改为黑色 */
+    font-size: 0.8rem;
+    padding: 0.3rem 1rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 0;
+    pointer-events: none;
+}
+
+/* 输入框组样式更新 */
+.input-group {
+    background-color: rgb(75, 0, 0);
+}
+
+.input-group .form-control {
+    background-color: transparent;
+    padding-left: 0.75rem;
+    border-right: none;
+}
+
+.input-group .dropdown-toggle-split {
+    background-color: transparent;
+    color: #F5F5F5;
+    margin-top: 0;
+}
+
+/* 性别选择下拉菜单样式保持不变 */
+.dropdown-menu {
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    left: auto !important;
+    right: 0 !important;
+    transform-origin: top right !important;
+}
+
+.dropdown-menu.show {
+    display: block;
+    margin-top: 0;
+    margin-right: -8px;
+}
+
+/* 调整社交媒体图标容器的定位 */
+.footer .col-md-4:last-child {
+    display: block;
+    position: relative;
+    min-height: 200px;  /* 确保容器有足够的高度 */
+}
+
+.social-links {
+    display: flex;
+    gap: 1.1rem;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    bottom: -2rem;  /* 与横线对齐 */
+    left: 10mm;    /* 向左平移1厘米 */
+}
+
+.social-icon {
+    color: var(--text-color);
+    font-size: 1.26rem;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #000000;  /* 改黑色 */
+    transform: translateY(-3px);
+}
+
+/* 调整页脚横的置 */
+.footer-divider {
+    margin: 2rem 0;
+    border-color: rgba(212, 175, 55, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .footer .col-md-4:last-child {
+        min-height: 150px;  /* 移动端减��高度 */
+    }
+    
+    .social-links {
+        position: static;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+}
+
+/* 最新资讯样式 */
+#news {
+    padding: 6rem 0;
+    background-color: var(--dark-bg);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
